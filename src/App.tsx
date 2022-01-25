@@ -1,26 +1,50 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Provider } from "react-redux";
+import { initStore } from "./store/initStore";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import { Auth } from "./pages/Auth";
+import { Dashboard } from "./pages/Dashboard";
+import { Settings } from "./pages/Settings";
+import { UnauthenticatedRoute } from "./components/UnauthenticatedRoute";
+import { AuthenticatedRoute } from "./components/AuthenticatedRoute";
+const store = initStore();
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => (
+  <Provider store={store}>
+    <Router>
+      <Routes>
+        <Route
+          path="/login"
+          element={
+            <UnauthenticatedRoute>
+              <Auth />
+            </UnauthenticatedRoute>
+          }
+        />
+        <Route
+          path="/dashboard"
+          element={
+            <AuthenticatedRoute>
+              <Dashboard />
+            </AuthenticatedRoute>
+          }
+        />
+        <Route
+          path="/settings"
+          element={
+            <AuthenticatedRoute>
+              <Settings />
+            </AuthenticatedRoute>
+          }
+        />
+        <Route path="*" element={<Navigate replace to="/login" />} />
+      </Routes>
+    </Router>
+  </Provider>
+);
 
 export default App;
