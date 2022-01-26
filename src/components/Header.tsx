@@ -4,7 +4,7 @@ import styled from "styled-components/macro";
 import { useDispatch } from "react-redux";
 import { signOut } from "../store/auth/authThunks";
 
-interface Props {
+interface IProps {
   name?: string;
 }
 
@@ -19,7 +19,7 @@ const RightBlock = styled.div`
   align-items: end;
 `;
 
-export const Header = ({ name }: Props) => {
+export const Header: React.FC<IProps> = ({ name }) => {
   const dispatch = useDispatch();
 
   return (

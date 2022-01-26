@@ -24,7 +24,7 @@ const LinkContainer = styled.div<{ isFocused: boolean }>`
   }
 `;
 
-export const DashboardLink = ({ title, icon, to }: IProps) => {
+export const DashboardLink: React.FC<IProps> = ({ title, icon, to }) => {
   const { pathname } = useLocation();
 
   const isFocused = pathname === to;

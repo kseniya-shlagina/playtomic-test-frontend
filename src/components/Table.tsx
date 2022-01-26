@@ -7,59 +7,19 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 
-import { useTable } from "react-table";
+import { Column, useTable } from "react-table";
 import { ICharacter } from "../store/characters/charactersActions";
+import { IPlanet } from "../store/planets/planetsActions";
 
-interface ITable {
-  data: ICharacter[];
+interface ITable<T extends object> {
+  data: T[];
+  columns: ReadonlyArray<Column<T>>;
 }
 
-const columns = [
-  {
-    Header: "Name",
-    columns: [
-      {
-        Header: "Name",
-        accessor: "name",
-      },
-    ],
-  },
-  {
-    Header: "Info",
-    columns: [
-      {
-        Header: "Height",
-        accessor: "height",
-      },
-      {
-        Header: "Mass",
-        accessor: "mass",
-      },
-      {
-        Header: "Hair color",
-        accessor: "hairColor",
-      },
-      {
-        Header: "Skin color",
-        accessor: "skinColor",
-      },
-      {
-        Header: "Eye color",
-        accessor: "eyeColor",
-      },
-      {
-        Header: "Birth year",
-        accessor: "birthYear",
-      },
-      {
-        Header: "Gender",
-        accessor: "gender",
-      },
-    ],
-  },
-];
-
-export const Table = ({ data }: ITable) => {
+export const Table: React.FC<ITable<ICharacter | IPlanet>> = ({
+  data,
+  columns,
+}) => {
   const { getTableProps, headerGroups, rows, prepareRow } = useTable({
     columns,
     data,
@@ -68,7 +28,6 @@ export const Table = ({ data }: ITable) => {
   return (
     <div>
       <CssBaseline />
-
       <MaUTable {...getTableProps()}>
         <TableHead>
           {headerGroups.map((headerGroup) => (

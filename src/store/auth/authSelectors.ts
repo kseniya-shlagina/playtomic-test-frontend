@@ -1,6 +1,6 @@
 import { IRootState } from "../rootReducer";
 
-export const IsAuthenticated = (state: IRootState) => state.auth.token !== null;
+export const isAuthenticated = (state: IRootState) => state.auth.token !== null;
 
 export const getUserName = (state: IRootState) => state.auth.user?.name;
 

@@ -6,10 +6,11 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import styled from "styled-components/macro";
 import { Header } from "./Header";
 
-interface Props {
+interface IProps {
   title: string;
   content: React.ReactNode;
   name?: string;
+  contentFetchingError?: string;
 }
 
 const Container = styled.div`
@@ -49,6 +50,7 @@ const Content = styled.div`
   padding: 50px 60px;
   color: gray;
 `;
+
 const Aside = styled.div`
   margin-right: 40px;
 `;
@@ -63,7 +65,7 @@ const StyledSettingsIcon = styled(SettingsIcon)`
   margin-right: 15px;
 `;
 
-export const Layout = ({ title, content, name }: Props) => {
+export const Layout: React.FC<IProps> = ({ title, content, name }) => {
   return (
     <Container>
       <Header name={name} />
